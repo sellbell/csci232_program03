@@ -7,14 +7,21 @@ package csci232_program03;
  * Overview:
  * - Program to gain experience with graphs and 
  *      implementation of common graph algorithms
+ * 
  * - read graphs from comma separated files containing adjacency matrices
  *      using file relative paths
+ * 
  * - implement 3 graphing methods:
  *      1. Prim's Algorithm - to find minimum spanning tree for weighted graph
+ *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
+ * 
  *      2. Kruskal's Algorithm - to find minimum spanning tree for weighted graph
+  *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
+  * 
  *      3. Floyd-Warshall's Algorithm - to find length of the shortest path b/t
  *          all pairs of vertices for weighted connected simple graph
- * - display step-by-step changes to adjacency matrix as console output
+ *          >> display step-by-step changes to adjacency matrix as console output
+ *          >> start with initial matrix
  */
 
 public class Csci232_program03 {
