@@ -1,0 +1,23 @@
+package csci232_program03;
+
+/**
+ *
+ * @author Sell
+ */
+public class Vertex {
+    
+    public int data; // identifier
+    public int rank;
+    
+    public Vertex rep; // representative
+    public Adjacent adj; // neighboring item
+    
+    
+    public Vertex(int data){
+        this.data = data;
+        rep = this;
+    }
+    
+    
+    
+}
