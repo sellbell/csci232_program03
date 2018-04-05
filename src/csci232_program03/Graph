@@ -1,0 +1,121 @@
+package csci232_program03;
+
+/**
+ *
+ * @author Sell
+ */
+public class Graph {
+    
+    public int maxSize;
+    public int size; // size of graph
+    public int edges; // # of edges
+    
+    public Edge allEdges; // track/list edges
+    public Vertex[] vertexAr;
+    
+    
+    public Graph(int maxSize){
+        this.maxSize = maxSize;
+        vertexAr = new Vertex[maxSize];
+    }
+    
+    
+    
+    // Method to add a vertex to the graph
+    public void addVertex(int data){
+        vertexAr[size++] = new Vertex(data);
+    }  
+    
+    // method to add an edge
+    public void addEdge(int source, int destination, int weight){
+        vertexAr[source - 1].adj = new Adjacent((destination - 1), weight, vertexAr[source - 1].adj);
+        allEdges = new Edge(vertexAr[source - 1], vertexAr[destination - 1], weight, allEdges);
+        edges++; // increment edge number
+    }
+    
+    //method to swap
+    public void swap(Edge[] e, int i1, int i2){
+        Edge tmp = e[i1];
+        e[i1] = e[i2];
+        e[i2] = tmp;
+    }
+    
+    // method to pivot
+    public int pivot(Edge[] e, int start, int end){
+        
+        Edge pivot = e[end];
+        int pivotIndex = start;
+        
+        for(int i = start; i < end; i++){
+            if(e[i].weight < pivot.weight){
+                swap(e, i, pivotIndex);
+                pivotIndex++;
+            }
+        }
+        swap(e, end,pivotIndex);
+        return pivotIndex;
+    }
+    
+    // method for sorting 
+    public void quicksort(Edge[] e, int start, int end){
+        if(start < end){
+            swap(e, end, (start + (end - start)/2));
+            
+            int pivotIndex = pivot(e, start, end);
+            
+            quicksort(e, start, pivotIndex - 1);
+            quicksort(e, pivotIndex + 1, end);
+        }
+    }
+    
+    // method to find set of vertices
+    public Vertex findSet(Vertex v){
+        // check if same vertex
+        if(v.rep != v){
+            v.rep = findSet(v.rep);
+        }
+        return v.rep;
+    }
+    
+    
+    
+    
+    
+    
+    /* IMPLEMENT ALORITHMS HEREE */
+    
+    /* KRUSKAL */
+    public void kruskal(){
+        
+        Edge[] edgeAr = new Edge[edges];
+        
+        int i = 0;
+        
+        // run thru edges in catalogue
+        while(allEdges != null){
+            edgeAr[i] = allEdges;
+            i++;
+            allEdges = allEdges.next;
+        }
+        
+        quicksort(edgeAr, 0, (edges - 1));
+        
+        for(i = 0; i < edges; i++){
+            Vertex vertex1 = findSet(edgeAr[i].source);
+            Vertex vertex2 = findSet(edgeAr[i].destination);
+            
+            if(vertex1 != vertex2){
+                System.out.println(edgeAr[i].source.data + " - " + edgeAr[i].destination.data + " weight = " + edgeAr[i].weight);
+            }
+        }
+        
+    } /* end of kruskal */
+    
+    
+    /* PRIM */
+    public void prim(){
+        
+    }
+    
+    
+}
