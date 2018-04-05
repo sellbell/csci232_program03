@@ -1,0 +1,27 @@
+
+package csci232_program03;
+
+/**
+ *
+ * @author Sell
+ */
+public class Edge {
+    
+    public int weight;
+    
+    public Edge next;
+    
+    public Vertex source;
+    public Vertex destination;
+    
+    public Edge(Vertex source, Vertex destination, int weight, Edge next){
+        
+        this.source = source;
+        this.destination = destination;
+        this.weight = weight;
+        this.next = next;
+        
+    }
+    
+    
+}
