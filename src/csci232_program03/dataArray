@@ -43,17 +43,16 @@ public class dataArray {
     private Edge[] mst;
     static int index = 0; //variable to hold the index of the minimum spanning tree array
     static int max; //variable to hold the maximum number of edges for a minimum spanning tree
-    PriorityQueue<Edge> pq;// = new PriorityQueue<>();
+    PriorityQueue<Edge> pq;
     
     
     public dataArray(int a)
     {
        matrix = new int[a+1][a]; //creates a matrix array that has one row more than the columns. The extra row holds the label values
        lineSize = a; //sets the line size
-       mst = new Edge[a-1];
-       max = a-1; 
-       int queueSize = a * a;
-       pq = new PriorityQueue<Edge>(queueSize);
+       mst = new Edge[a-1]; //initializes the array to hold the edges to the size of how many vertices there are minus one. Most edges there can be are vertices minus one otherwise loops
+       max = a-1; //sets the maximum number of edges there can be without causing a loop
+       pq = new PriorityQueue<>(); //initializes a priority queue
     }
     
     //Method to fill the matrix
@@ -71,6 +70,7 @@ public class dataArray {
             spotJ++; //increases the column spot
         }//end of else
     }// end of fillMatrix method
+    
     //Method to print the matrix
     public void print()
     {
@@ -102,60 +102,56 @@ public class dataArray {
         }
     }
     
-    //Method to create an edge - take beginning vertex, then ending vertex and the weight
+    //Method to create an edge: take beginning vertex, then ending vertex and the weight
     public Edge createEdge(Vertex x, Vertex y, int z)
     {
         Edge a = new Edge(x,y,z);
         return a;
     }
     
-    
     //Method to start Prim's algorithm. Pass in a 2D array
     public void prims()
     {
-        Vertex start;
+        Vertex start; //creates a variable to track the starting vertex
         createVertices(); //calls the method that creates all the vertices
         //find a random vertex to start at
         int randomCol = (int)(Math.random()* lineSize);
-        //int startingVertex = matrix[0][randomCol];
-        start = vertices[randomCol];
-        start.col = randomCol;
-        while(max > 0)
+        start = vertices[randomCol]; //picks a random column and grabs the vertex associated with that column
+        System.out.println("Prim's Algorithm");
+        System.out.println("---------------- ");
+        System.out.println("The starting Vertex is " + start.label);
+        while(max > 0) //While there are still edges that need to be accounted for
         {
             start.checked = true; //marks the vertex as having been checked
-            for(int j = 1; j <= lineSize; j++)
+            for(int j = 1; j <= lineSize; j++) //goes through the column of the starting vertex looking for edges to another vertex
                 {
-                    if(matrix[j][start.col] < Integer.MAX_VALUE) //goes through the column of the randomly chosen vertex looking for connections
+                    if(matrix[j][start.col] < Integer.MAX_VALUE) //if there is a connection then the column will have a number less than Integer.MAX_VALUE
                     {
                         Edge e = createEdge(start,vertices[j-1], matrix[j][start.col]); //send in source Vertex, dest. Vertex and weight
                         pq.add(e); //put the edge into the queue
                     }
                 }
             Edge temp = pq.remove(); //takes the lowest weighted edge and takes it out of the queue
-            while(temp.destination.checked)
+            while(temp.destination.checked) //if the edge connects to a vertex that has already been checked then keep checking edges
             {
                 temp = pq.remove(); //takes the lowest weighted edge and takes it out of the queue
             }
             mst[index] = temp; //put the edge into the minimum spanning tree
             index++; //increase the index of the minimum spanning tree array
-            max--;
-            //temp.destination.checked = true; //marks the vertex of connected by the edge as checked
+            max--; //decrease the amount of possible edges left to check
             start = temp.destination;
-            //start.next = temp.destination; //assigns the next variable in the vertex, to link with the lowest weighted edge
-            //temp.destination.previous = start;
         }
-        
-        //System.out.println("Starting vertex is " + (char) startingVertex);
     }
     public void printEdge()
     {
         for(int i = 0; i < mst.length; i++)
         {
-            System.out.println(mst[i].source.label + mst[i].destination.label);
+            System.out.print(mst[i].source.label + "" + mst[i].destination.label);
             if(i < mst.length - 1)
             {
-                System.out.println(",");
+                System.out.print(",");
             }
         }
+        System.out.println();
     }
 }
