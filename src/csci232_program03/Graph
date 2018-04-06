@@ -84,6 +84,66 @@ public class Graph {
     
     /* IMPLEMENT ALORITHMS HEREE */
     
+    /* PRIM */
+   /// uses a nested class
+    public class MST{
+        
+        public int v = 5;
+        
+        //method to get min
+        public int minKey(int key[], boolean mstSet[]){
+            int min = Integer.MAX_VALUE;
+            int min_index = -1;
+            
+            for(int i = 0; i < v; i++){
+                if(mstSet[i] == false && key[i] < min){
+                    min = key[i];
+                    min_index = i;
+                }
+            }
+            return min_index;
+        }
+        
+        // method to atually run prim algo
+        public void prim(int graph[][]){
+            int parent[] = new int[v];
+            int key[] = new int[v];
+            
+            boolean mstSet[] = new boolean[v];
+            
+            for(int i = 0; i < v; i++){
+                key[i] = Integer.MAX_VALUE;
+                mstSet[i] = false;
+            }
+            key[0] = 0;
+            parent[0] = -1;
+            
+            for(int i = 0; i < (v - 1); i++){
+                int m = minKey(key, mstSet);
+                mstSet[m] = true;
+                
+                for(int n = 0; n < v; n++){
+                    if(graph[m][n] != 0 && mstSet[n] == false && graph[m][n] < key[n]){
+                        parent[n] = m;
+                        key[n]= graph[m][n];
+                    }
+                }
+            } // end for 'i'
+            
+            printPrim(parent, v, graph);
+        }
+        
+        // method to print prim MST
+        public void printPrim(int parent[], int n, int graph[][]){
+            for(int i = 1; i < v; i++){
+                System.out.println(parent[i] + " - " + i + " " + graph[i][parent[i]]);
+            }
+            
+        }
+    }
+    /* end of all prim */
+    
+    
     /* KRUSKAL */
     public void kruskal(){
         
@@ -112,10 +172,55 @@ public class Graph {
     } /* end of kruskal */
     
     
-    /* PRIM */
-    public void prim(){
+    /* FLOYD - WARSHALL */
+    public void floydWarshall(int graph[][]){
         
+        int v = 5;
+        
+        int dist[][] = new int[v][v];
+        
+        int i;
+        int j;
+        int k;
+        
+        for(i = 0; i < v; i++){
+            for(j = 0; j < v; j++){
+                dist[i][j] = graph[i][j];
+            } // end for 'j'
+        } // end for 'i'
+        
+        for(k = 0; k < v; k++){
+            for(i = 0; i < v; i++){
+                for(j = 0; j < v; j++){
+                    if((dist[i][k] + dist[k][j]) < dist[i][j]){
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        } // end for 'k'
+        
+        printFloyd(dist, v);
     }
     
-    
+    // method to print floyd warshall results
+    public void printFloyd(int dist[][], int v){
+        
+        int inf = 99999;
+        
+        for(int i = 0; i < v; ++i){
+            for(int j = 0; j < v; ++j){
+                if(dist[i][j] == inf){
+                    System.out.print("INF");
+                }
+                else{
+                    System.out.print(dist[i][j] + " ");
+                }
+            }
+            System.out.println();
+        }
+        
+    }
+    /* end of all floyd */
+     
 }
+
