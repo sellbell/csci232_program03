@@ -1,0 +1,79 @@
+package csci232_program03;
+
+/**
+ * Authors: Selene Smith, Dallas LeGrande
+ * Date: 3/29/18
+ * 
+ * Overview:
+ * - Program to gain experience with graphs and 
+ *      implementation of common graph algorithms
+ * 
+ * - read graphs from comma separated files containing adjacency matrices
+ *      using file relative paths
+ * 
+ * - implement 3 graphing methods:
+ *      1. Prim's Algorithm - to find minimum spanning tree for weighted graph
+ *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
+ * 
+ *      2. Kruskal's Algorithm - to find minimum spanning tree for weighted graph
+  *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
+  * 
+ *      3. Floyd-Warshall's Algorithm - to find length of the shortest path b/t
+ *          all pairs of vertices for weighted connected simple graph
+ *          >> display step-by-step changes to adjacency matrix as console output
+ *          >> start with initial matrix
+ * 
+ * This class is for building an adjacency matrix
+ */
+
+
+
+public class dataArray {
+    private int[][] matrix; //variable to hold the matrix array
+    private int lineSize; //variable to hold the line size
+    private int spotI = 0; //variable to keep track of which row the numbers are being inserted into the matrix
+    private int spotJ = 0; //variable to keep track of which column the numbers are being inserted into the matrix
+    
+    
+    public dataArray(int a)
+    {
+       matrix = new int[a+1][a]; //creates a matrix array that has one row more than the columns. The extra row holds the label values
+       lineSize = a; //sets the line size
+        
+    }
+    
+    //Method to fill the matrix
+    public void fillMatrix(int a)
+    {
+        if(spotJ < lineSize) //if there are open columns in the row insert the number into the open column spot
+            {
+                matrix[spotI][spotJ] = a;
+                spotJ++; //increase the column spot
+            }
+        else{ //if there are no open columns left in the row then start a new row and put set the column number to zero
+            spotI++; //increases the row
+            spotJ = 0; //starts the next row at the beginning
+            matrix[spotI][spotJ] = a; //puts the number into the first spot of the next available row
+            spotJ++; //increases the column spot
+        }//end of else
+    }// end of fillMatrix method
+    //Method to print the matrix
+    public void print()
+    {
+        for(int i = 0; i < lineSize; i++) //go through each row
+        {
+            for(int j = 0; j < lineSize; j++) //go through each column
+            {
+                if(matrix[i][j] > 64 && matrix[i][j] < 91) //if the spot in the row and column is a capital letter then it is a label
+                {
+                    System.out.print((char) matrix[i][j] + " "); //print the label
+                }//end of if
+                else{ //otherwise it is a number
+                    System.out.print(matrix[i][j] + " "); //print the number
+                }//end of else
+            }//end of inner for loop
+            System.out.println(); //make it so the next row prints on the next line
+        }//end of outer for loop
+    }//end of print method
+    
+}

@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package csci232_program03;
 
 /**
  *
+
  * @author w71w233
  */
 public class Vertex {
@@ -29,4 +26,20 @@ public void checked(Vertex v)
     v.checked = true;
 }
 
+ * @author Sell
+ */
+public class Vertex {
+    
+    public int data; // identifier
+    public int rank;
+    
+    public Vertex rep; // representative
+    public Adjacent adj; // neighboring item
+    
+    
+    public Vertex(int data){
+        this.data = data;
+        rep = this;
+    }
+    
 }
