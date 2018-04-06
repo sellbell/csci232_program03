@@ -4,9 +4,14 @@ package csci232_program03;
 /**
  *
 
- * @author w71w233
+ * @author w71w233,Sell
  */
 public class Vertex {
+    public int data; // identifier
+    public int rank;
+    
+    public Vertex rep; // representative
+    public Adjacent adj; // neighboring item
     public char label;
     public boolean checked = false;
     public Vertex next;
@@ -14,6 +19,10 @@ public class Vertex {
     public int col; //Keeps track of the row that the vertex is in for indexing purposes
     //public Vertex[] connection; //variable to hold edge connections each vertex could have.
 
+    public Vertex(int data){
+        this.data = data;
+        rep = this;
+    }
 //contructor to label the vertex and initialize an array to hold all the possible vertices that are connected to the vertex
 public Vertex(char a, int i)
 {
@@ -24,22 +33,5 @@ public Vertex(char a, int i)
 public void checked(Vertex v)
 {
     v.checked = true;
-}
-
- * @author Sell
- */
-public class Vertex {
-    
-    public int data; // identifier
-    public int rank;
-    
-    public Vertex rep; // representative
-    public Adjacent adj; // neighboring item
-    
-    
-    public Vertex(int data){
-        this.data = data;
-        rep = this;
-    }
-    
+}    
 }
