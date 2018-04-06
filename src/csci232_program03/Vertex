@@ -1,0 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package csci232_program03;
+
+/**
+ *
+ * @author w71w233
+ */
+public class Vertex {
+    public char label;
+    public boolean checked = false;
+    public Vertex next;
+    public Vertex previous;
+    public int col; //Keeps track of the row that the vertex is in for indexing purposes
+    //public Vertex[] connection; //variable to hold edge connections each vertex could have.
+
+//contructor to label the vertex and initialize an array to hold all the possible vertices that are connected to the vertex
+public Vertex(char a, int i)
+{
+    label = a; //set the label name of the vertex
+    col = i;
+   //connection = new Vertex[b-1]; //create a new array the size of the edge connections
+}
+public void checked(Vertex v)
+{
+    v.checked = true;
+}
+
+}
