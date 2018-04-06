@@ -1,0 +1,161 @@
+package csci232_program03;
+
+/**
+ * Authors: Selene Smith, Dallas LeGrande
+ * Date: 3/29/18
+ * 
+ * Overview:
+ * - Program to gain experience with graphs and 
+ *      implementation of common graph algorithms
+ * 
+ * - read graphs from comma separated files containing adjacency matrices
+ *      using file relative paths
+ * 
+ * - implement 3 graphing methods:
+ *      1. Prim's Algorithm - to find minimum spanning tree for weighted graph
+ *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
+ *          start with a vertex and put it into the tree. 
+ *          repeat the following steps
+ *              find all the edges from the newest vertex to the other vertices that aren't in the tree and put into the queue
+ *              pick the edge with the lowest weight and add this edge and its destination vertex to the tree
+ *              repeat until all the vertices are in the tree
+ *              newest means most recently installed into the tree
+ * 
+ *      2. Kruskal's Algorithm - to find minimum spanning tree for weighted graph
+  *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
+  * 
+ *      3. Floyd-Warshall's Algorithm - to find length of the shortest path b/t
+ *          all pairs of vertices for weighted connected simple graph
+ *          >> display step-by-step changes to adjacency matrix as console output
+ *          >> start with initial matrix
+ * 
+ * This class is for building an adjacency matrix
+ */
+
+import java.util.*;
+
+public class dataArray {
+    private int[][] matrix; //variable to hold the matrix array
+    private int lineSize; //variable to hold the line size
+    private int spotI = 0; //variable to keep track of which row the numbers are being inserted into the matrix
+    private int spotJ = 0; //variable to keep track of which column the numbers are being inserted into the matrix
+    private Vertex[] vertices;
+    private Edge[] mst;
+    static int index = 0; //variable to hold the index of the minimum spanning tree array
+    static int max; //variable to hold the maximum number of edges for a minimum spanning tree
+    PriorityQueue<Edge> pq;// = new PriorityQueue<>();
+    
+    
+    public dataArray(int a)
+    {
+       matrix = new int[a+1][a]; //creates a matrix array that has one row more than the columns. The extra row holds the label values
+       lineSize = a; //sets the line size
+       mst = new Edge[a-1];
+       max = a-1; 
+       int queueSize = a * a;
+       pq = new PriorityQueue<Edge>(queueSize);
+    }
+    
+    //Method to fill the matrix
+    public void fillMatrix(int a)
+    {
+        if(spotJ < lineSize) //if there are open columns in the row insert the number into the open column spot
+            {
+                matrix[spotI][spotJ] = a;
+                spotJ++; //increase the column spot
+            }
+        else{ //if there are no open columns left in the row then start a new row and put set the column number to zero
+            spotI++; //increases the row
+            spotJ = 0; //starts the next row at the beginning
+            matrix[spotI][spotJ] = a; //puts the number into the first spot of the next available row
+            spotJ++; //increases the column spot
+        }//end of else
+    }// end of fillMatrix method
+    //Method to print the matrix
+    public void print()
+    {
+        for(int i = 0; i < lineSize; i++) //go through each row
+        {
+            for(int j = 0; j < lineSize; j++) //go through each column
+            {
+                if(matrix[i][j] > 64 && matrix[i][j] < 91) //if the spot in the row and column is a capital letter then it is a label
+                {
+                    System.out.print((char) matrix[i][j] + " "); //print the label
+                }//end of if
+                else{ //otherwise it is a number
+                    System.out.print(matrix[i][j] + " "); //print the number
+                }//end of else
+            }//end of inner for loop
+            System.out.println(); //make it so the next row prints on the next line
+        }//end of outer for loop
+    }//end of print method
+ 
+    //Method to create all the vertices
+    public void createVertices()
+    {
+        vertices = new Vertex[lineSize]; //creates a vertice array to hold all the vertices
+        for(int i = 0; i < lineSize; i++)
+        {
+            Vertex a;
+            a = new Vertex((char) matrix[0][i],i); //creates a new vertex for each label in the matrix, passing the char value and the col number
+            vertices[i] = a;
+        }
+    }
+    
+    //Method to create an edge - take beginning vertex, then ending vertex and the weight
+    public Edge createEdge(Vertex x, Vertex y, int z)
+    {
+        Edge a = new Edge(x,y,z);
+        return a;
+    }
+    
+    
+    //Method to start Prim's algorithm. Pass in a 2D array
+    public void prims()
+    {
+        Vertex start;
+        createVertices(); //calls the method that creates all the vertices
+        //find a random vertex to start at
+        int randomCol = (int)(Math.random()* lineSize);
+        //int startingVertex = matrix[0][randomCol];
+        start = vertices[randomCol];
+        start.col = randomCol;
+        while(max > 0)
+        {
+            start.checked = true; //marks the vertex as having been checked
+            for(int j = 1; j <= lineSize; j++)
+                {
+                    if(matrix[j][start.col] < Integer.MAX_VALUE) //goes through the column of the randomly chosen vertex looking for connections
+                    {
+                        Edge e = createEdge(start,vertices[j-1], matrix[j][start.col]); //send in source Vertex, dest. Vertex and weight
+                        pq.add(e); //put the edge into the queue
+                    }
+                }
+            Edge temp = pq.remove(); //takes the lowest weighted edge and takes it out of the queue
+            while(temp.destination.checked)
+            {
+                temp = pq.remove(); //takes the lowest weighted edge and takes it out of the queue
+            }
+            mst[index] = temp; //put the edge into the minimum spanning tree
+            index++; //increase the index of the minimum spanning tree array
+            max--;
+            //temp.destination.checked = true; //marks the vertex of connected by the edge as checked
+            start = temp.destination;
+            //start.next = temp.destination; //assigns the next variable in the vertex, to link with the lowest weighted edge
+            //temp.destination.previous = start;
+        }
+        
+        //System.out.println("Starting vertex is " + (char) startingVertex);
+    }
+    public void printEdge()
+    {
+        for(int i = 0; i < mst.length; i++)
+        {
+            System.out.println(mst[i].source.label + mst[i].destination.label);
+            if(i < mst.length - 1)
+            {
+                System.out.println(",");
+            }
+        }
+    }
+}
