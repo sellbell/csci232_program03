@@ -39,6 +39,9 @@ public class csci232_program03 {
     public static void main(String[] args) {
         csci232_program03 go = new csci232_program03();
         go.readWord();
+        go.primsAlgorithm();
+        go.cv();
+        
     }
     //reads the file line by line then separates it into word by word
     public void readWord()
@@ -59,7 +62,7 @@ public class csci232_program03 {
                {
                    //splits the line every time there is a comma and puts each word into an array
                    String[] words = line.split(",");
-                   if(line1 == 1) //if it's the first line read in then it has the table labels
+                   if(line1 == 1) //if it's the first line read in, then it has the table labels
                    {
                        counter = words.length; //count the number of elements in line 1
                        array = new dataArray(counter); //creates a 2D array with the size of the elements in line 1
@@ -89,7 +92,16 @@ public class csci232_program03 {
             System.out.println("File not found");
               }
     }//end of readWord method
+    
+    public void primsAlgorithm()
+    {
+        array.prims();
+        array.printEdge();
+    }
+    public void cv()
+    {
+        array.createVertices();
+    }
 }//end of class
-
     
 
