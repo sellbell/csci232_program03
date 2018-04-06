@@ -8,12 +8,8 @@ package csci232_program03;
 
 public class Edge implements Comparable<Edge>{
 
-
-    
     public int weight;
-    
     public Edge next;
-    
     public Vertex source;
     public Vertex destination;
     
@@ -24,10 +20,16 @@ public class Edge implements Comparable<Edge>{
         this.source = source;
         this.destination = destination;
         this.weight = weight;
-
         this.next = next; //for krukal in graph.java
         
     }
+    
+    public Edge(Vertex source, Vertex destination, int weight){
+        this.source = source;
+        this.destination = destination;
+        this.weight = weight;
+    }
+    
     // used with the priority queue
     // this tells the queue to base the priority on the edge weight
     @Override
