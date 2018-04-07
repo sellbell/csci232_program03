@@ -19,6 +19,7 @@ public class Graph {
         vertexAr = new Vertex[maxSize];
     }
     
+     
     
     
     // Method to add a vertex to the graph
@@ -175,7 +176,7 @@ public class Graph {
     /* FLOYD - WARSHALL */
     public void floydWarshall(int graph[][]){
         
-        int v = 5;
+        int v = graph.length;
         
         int dist[][] = new int[v][v];
         
@@ -205,12 +206,13 @@ public class Graph {
     // method to print floyd warshall results
     public void printFloyd(int dist[][], int v){
         
-        int inf = 99999;
+        System.out.println();
+        //int inf = 99999;
         
         for(int i = 0; i < v; ++i){
             for(int j = 0; j < v; ++j){
-                if(dist[i][j] == inf){
-                    System.out.print("INF");
+                if(dist[i][j] == -Integer.MAX_VALUE){
+                    System.out.print("INF ");
                 }
                 else{
                     System.out.print(dist[i][j] + " ");

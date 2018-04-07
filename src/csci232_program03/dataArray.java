@@ -22,8 +22,8 @@ package csci232_program03;
  *              newest means most recently installed into the tree
  * 
  *      2. Kruskal's Algorithm - to find minimum spanning tree for weighted graph
-  *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
-  * 
+ *          >> print the edges in the minimum spanning tree to console ie: "AB BC CD DE"
+ * 
  *      3. Floyd-Warshall's Algorithm - to find length of the shortest path b/t
  *          all pairs of vertices for weighted connected simple graph
  *          >> display step-by-step changes to adjacency matrix as console output
@@ -35,12 +35,12 @@ package csci232_program03;
 import java.util.*;
 
 public class dataArray {
-    private int[][] matrix; //variable to hold the matrix array
-    private int lineSize; //variable to hold the line size
-    private int spotI = 0; //variable to keep track of which row the numbers are being inserted into the matrix
-    private int spotJ = 0; //variable to keep track of which column the numbers are being inserted into the matrix
-    private Vertex[] vertices;
-    private Edge[] mst;
+    public int[][] matrix; //variable to hold the matrix array
+    public int lineSize; //variable to hold the line size
+    public int spotI = 0; //variable to keep track of which row the numbers are being inserted into the matrix
+    public int spotJ = 0; //variable to keep track of which column the numbers are being inserted into the matrix
+    public Vertex[] vertices;
+    public Edge[] mst;
     static int index = 0; //variable to hold the index of the minimum spanning tree array
     static int max; //variable to hold the maximum number of edges for a minimum spanning tree
     PriorityQueue<Edge> pq;
@@ -153,5 +153,19 @@ public class dataArray {
             }
         }
         System.out.println();
+    }
+    public int[][] refillMatrix(int warshall[][])
+    {
+        int length = warshall.length-1;
+        int [][]a = new int[length][length];
+        for(int i = 0; i < length; i++)
+        {
+            for(int j = 0; j < length; j++)
+            {
+                a[i][j] = warshall[i+1][j];
+            }
+        }
+        
+        return a;
     }
 }
