@@ -176,19 +176,22 @@ public class Graph {
     /* FLOYD - WARSHALL */
     public void floydWarshall(int graph[][]){
         
-        int v = graph.length;
         
-        int dist[][] = new int[v][v];
+        int v = graph.length;
+        System.out.println("This is the original graph ");
+        printFloyd(graph,v);
+        System.out.println("This where the original graph ends");
+        int dist[][] = graph;//new int[v][v];
         
         int i;
         int j;
         int k;
         
-        for(i = 0; i < v; i++){
-            for(j = 0; j < v; j++){
-                dist[i][j] = graph[i][j];
-            } // end for 'j'
-        } // end for 'i'
+//        for(i = 0; i < v; i++){
+//            for(j = 0; j < v; j++){
+//                dist[i][j] = graph[i][j];
+//            } // end for 'j'
+//        } // end for 'i'
         
         for(k = 0; k < v; k++){
             for(i = 0; i < v; i++){
@@ -211,15 +214,16 @@ public class Graph {
         
         for(int i = 0; i < v; ++i){
             for(int j = 0; j < v; ++j){
-                if(dist[i][j] == -Integer.MAX_VALUE){
-                    System.out.print("INF ");
-                }
-                else{
+//                if(dist[i][j] == -Integer.MAX_VALUE){
+//                    System.out.print("INF ");
+//                }
+//                else{
                     System.out.print(dist[i][j] + " ");
                 }
-            }
             System.out.println();
-        }
+            }
+            
+//        }
         
     }
     /* end of all floyd */

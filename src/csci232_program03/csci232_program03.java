@@ -38,21 +38,20 @@ public class csci232_program03 {
 
     public static void main(String[] args) {
         csci232_program03 go = new csci232_program03();
-        go.readWord();
-        go.floyd();
-        //go.primsAlgorithm();
-        //go.cv();
+        go.readWord(go.primFile()); //reads the file that is in the primFile method
+        go.primsAlgorithm(); //runs the prims algorithm
+        go.cv();
+        go.readWord(go.floydFile()); //reads the file that is in the floyfFile method
+        go.floyd(); //runs the floyd-warshall algoritm
         
     }
     //reads the file line by line then separates it into word by word
-    public void readWord()
+    public void readWord(Path path)
     {
         int line1 = 1; //flag for when the first line of the file is being read in
         int num; //int for converting strings to ints
         
         try{ 
-            //provides a path to the file being read from
-            Path path =  Paths.get("./input/floyd.csv");
             
             //opens the bufferedreader to be able to read a file. The file location is held in the variable "path"
             try (BufferedReader reader = Files.newBufferedReader(path)){
@@ -75,7 +74,7 @@ public class csci232_program03 {
                    }//end of if statement
                    else{ //if it's not the first line then convert the string to an int
                         for (String word : words) {
-                            if(word.equals("inf")) //if the string is a blank then it is infinity. Which is converted to the integer max value
+                            if(word.equals("inf") || word.equals(" inf") || word.equals("inf ")) //if the string is inf or has a space before or after inf then it is infinity. Which is converted to the integer max value
                             {
                                 num = Integer.MAX_VALUE;   
                             }
@@ -93,6 +92,18 @@ public class csci232_program03 {
             System.out.println("File not found");
               }
     }//end of readWord method
+    
+    public Path primFile()
+    {
+        Path path =  Paths.get("./input/input.csv");
+        return path;
+    }
+            
+    public Path floydFile()
+    {
+        Path path =  Paths.get("./input/floyd.csv");
+        return path;
+    }
     
     public void primsAlgorithm()
     {
