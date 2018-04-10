@@ -1,8 +1,14 @@
 package csci232_program03;
 
 /**
- *
- * @author Sell
+* Authors: Selene Smith, Dallas LeGrande
+ * Date: 4/10/18
+ * 
+ * Overview:
+ * - Program to gain experience with graphs and 
+ *      implementation of common graph algorithms
+ * 
+ * This class represents the graph
  */
 public class Graph {
     
