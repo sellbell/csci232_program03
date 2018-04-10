@@ -154,6 +154,7 @@ public class dataArray {
         }
         System.out.println();
     }
+    //fills the matrix for the floyd-Warshall method
     public int[][] refillMatrix(int warshall[][])
     {
         int length = warshall.length-1;
@@ -162,10 +163,9 @@ public class dataArray {
         {
             for(int j = 0; j < length; j++)
             {
-                a[i][j] = warshall[i+1][j];
+                a[i][j] = warshall[i+1][j]; //copies the columns shifted one over so that the columns can be printed
             }
         }
-        
         return a;
-    }
+    }//end of refillMatrix method
 }

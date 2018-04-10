@@ -76,7 +76,7 @@ public class csci232_program03 {
                         for (String word : words) {
                             if(word.equals("inf") || word.equals(" inf") || word.equals("inf ")) //if the string is inf or has a space before or after inf then it is infinity. Which is converted to the integer max value
                             {
-                                num = Integer.MAX_VALUE;   
+                                num = Integer.MAX_VALUE;   //sets infinity the integer max value
                             }
                             else{ //otherwise convert the string to an int
                                 num = Integer.parseInt(word);
@@ -93,27 +93,34 @@ public class csci232_program03 {
               }
     }//end of readWord method
     
+    //Method to get the correct input file for prims algorithm
     public Path primFile()
     {
         Path path =  Paths.get("./input/input.csv");
         return path;
     }
-            
+    
+    //Method to get the correct input file for floyd-warshall algorithm
     public Path floydFile()
     {
         Path path =  Paths.get("./input/floyd.csv");
         return path;
     }
     
+    //method to run prims algorithm
     public void primsAlgorithm()
     {
         array.prims();
         array.printEdge();
     }
+    
+    //method to create the vertices for prims algorithm
     public void cv()
     {
         array.createVertices();
     }
+    
+    //Method to run the floyd-warshall algorithm
     public void floyd()
     {
         Graph a = new Graph(counter);

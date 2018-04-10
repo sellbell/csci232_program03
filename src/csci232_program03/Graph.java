@@ -175,56 +175,63 @@ public class Graph {
     
     /* FLOYD - WARSHALL */
     public void floydWarshall(int graph[][]){
-        
-        
         int v = graph.length;
-        System.out.println("This is the original graph ");
-        printFloyd(graph,v);
-        System.out.println("This where the original graph ends");
-        int dist[][] = graph;//new int[v][v];
+        int dist[][] = graph; //copies the graph to a new matrix
+        printFloyd(dist,v);// prints the original graph before any changes are made
+        for(int k = 0; k < v; k++){ //goes through the matrix checking each spot against any other spots that connect the same vertices
+            for(int i = 0; i < v; i++){
+                for(int j = 0; j < v; j++){
+                    if(dist[i][k] !=  Integer.MAX_VALUE && dist[k][j] != Integer.MAX_VALUE){
+                        if(dist[i][j] > (dist[i][k] + dist[k][j])){
+                            dist[i][j] = dist[i][k] + dist[k][j];
+                            printFloyd(dist,v); //Prints the matrix after something is changed
+                        }//end of if inner if
+                    }//end of outer if
+                }//end of inner for loop
+            }//end of middle for loop
+        }//end of outer for loop
         
-        int i;
-        int j;
-        int k;
-        
-//        for(i = 0; i < v; i++){
-//            for(j = 0; j < v; j++){
-//                dist[i][j] = graph[i][j];
-//            } // end for 'j'
-//        } // end for 'i'
-        
-        for(k = 0; k < v; k++){
-            for(i = 0; i < v; i++){
-                for(j = 0; j < v; j++){
-                    if((dist[i][k] + dist[k][j]) < dist[i][j]){
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                    }
-                }
-            }
-        } // end for 'k'
-        
-        printFloyd(dist, v);
+        printFloyd(dist, v); //prints the final matrix
     }
     
     // method to print floyd warshall results
     public void printFloyd(int dist[][], int v){
         
-        System.out.println();
-        //int inf = 99999;
-        
+        System.out.println();//puts a blank line in between each printed matrix
+        int count = 0;
         for(int i = 0; i < v; ++i){
-            for(int j = 0; j < v; ++j){
-//                if(dist[i][j] == -Integer.MAX_VALUE){
-//                    System.out.print("INF ");
-//                }
-//                else{
-                    System.out.print(dist[i][j] + " ");
+            for(int j = 0; j < v; ++j){                   
+                   while(count < v){ //prints the heading to the table to visualize
+                       if(count == 0) //moves the headings over to line up with the columns
+                       {
+                           System.out.print("    ");
+                       }
+                    System.out.print((char)(65 + count) + "     "); //prints the columns starting with A and continuing until the end of the array row
+                    count++;
+                   }
+                   if(count == v) //once you get to the end the row start a new line to print the table
+                   {
+                        System.out.println();
+                        count++;
+                   }
+                   if(j == 0){ //Print the row heading before printing the row
+                       System.out.print((char) (65 + i) + "  |");
+                   }
+                   if(dist[i][j] == Integer.MAX_VALUE){ //prints INF instead of the integer max value
+                    System.out.print("INF  |");
+                    }
+                else{
+                       if(dist[i][j] > 9) //prints one less space if the numbers are two digits. This keeps the columns lined up when printing
+                       {
+                           System.out.print(dist[i][j] + "   |");
+                       }
+                       else{
+                        System.out.print(dist[i][j] + "    |");
+                       }
                 }
+            }
             System.out.println();
             }
-            
-//        }
-        
     }
     /* end of all floyd */
      
