@@ -2,7 +2,7 @@ package csci232_program03;
 
 /**
  * Authors: Selene Smith, Dallas LeGrande
- * Date: 3/29/18
+ * Date: 4/10/18
  * 
  * Overview:
  * - Program to gain experience with graphs and 
