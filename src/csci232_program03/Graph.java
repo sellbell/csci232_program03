@@ -204,6 +204,8 @@ public class Graph {
     public void printFloyd(int dist[][], int v){
         
         System.out.println();//puts a blank line in between each printed matrix
+        System.out.println("Floyd-Warshall Algorithm");
+        System.out.println("--------------------------- ");
         int count = 0;
         for(int i = 0; i < v; ++i){
             for(int j = 0; j < v; ++j){                   

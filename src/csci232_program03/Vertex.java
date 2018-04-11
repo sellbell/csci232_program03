@@ -34,13 +34,10 @@ package csci232_program03;
 public class Vertex {
     public int data; // identifier
     public int rank;
-    
     public Vertex rep; // representative
     public Adjacent adj; // neighboring item
     public char label;
     public boolean checked = false;
-    public Vertex next;
-    public Vertex previous;
     public int col; //Keeps track of the row that the vertex is in for indexing purposes
     
 

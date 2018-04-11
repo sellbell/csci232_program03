@@ -40,9 +40,10 @@ public class csci232_program03 {
         csci232_program03 go = new csci232_program03();
         go.readWord(go.primFile()); //reads the file that is in the primFile method
         go.primsAlgorithm(); //runs the prims algorithm
-        go.cv();
+        go.kruskal();
         go.readWord(go.floydFile()); //reads the file that is in the floyfFile method
-        go.floyd(); //runs the floyd-warshall algoritm
+       go.floyd(); //runs the floyd-warshall algoritm
+        
         
     }
     //reads the file line by line then separates it into word by word
@@ -85,7 +86,7 @@ public class csci232_program03 {
                     }//end of for each loop
                    }//end of else
                }//end of while loop
-               //array.print(); //print the array to see the table
+
            }//end of try for buffered reader
         }//end of try for paths
         catch (IOException e){
@@ -111,13 +112,6 @@ public class csci232_program03 {
     public void primsAlgorithm()
     {
         array.prims();
-        array.printEdge();
-    }
-    
-    //method to create the vertices for prims algorithm
-    public void cv()
-    {
-        array.createVertices();
     }
     
     //Method to run the floyd-warshall algorithm
@@ -125,8 +119,13 @@ public class csci232_program03 {
     {
         Graph a = new Graph(counter);
         array.matrix = array.refillMatrix(array.matrix);
-        array.print();
         a.floydWarshall(array.matrix);
+    }
+    
+    //method to run kruskal algorithm
+    public void kruskal()
+    {
+        array.kruskal();
     }
 }//end of class
     
