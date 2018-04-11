@@ -10,6 +10,7 @@ package csci232_program03;
  * 
  * - read graphs from comma separated files containing adjacency matrices
  *      using file relative paths
+ *      files being read in read CSV files that have "inf" wherever there is an infinity 
  * 
  * - implement 3 graphing methods:
  *      1. Prim's Algorithm - to find minimum spanning tree for weighted graph
